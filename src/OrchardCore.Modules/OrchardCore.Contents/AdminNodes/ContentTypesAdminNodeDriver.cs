@@ -36,18 +36,19 @@ public sealed class ContentTypesAdminNodeDriver : DisplayDriver<MenuItem, Conten
     public override IDisplayResult Edit(ContentTypesAdminNode treeNode, BuildEditorContext context)
     {
         return Initialize<ContentTypesAdminNodeViewModel>("ContentTypesAdminNode_Fields_TreeEdit", async model =>
-            {
-                var listable = await GetListableContentTypeDefinitionsAsync();
+        {
+            var listable = await GetListableContentTypeDefinitionsAsync();
 
-                model.ShowAll = treeNode.ShowAll;
-                model.IconClass = treeNode.IconClass;
-                model.ContentTypes = listable.Select(x => new ContentTypeEntryViewModel
-                {
-                    ContentTypeId = x.Name,
-                    IsChecked = treeNode.ContentTypes.Any(selected => string.Equals(selected.ContentTypeId, x.Name, StringComparison.OrdinalIgnoreCase)),
-                    IconClass = treeNode.ContentTypes.FirstOrDefault(selected => selected.ContentTypeId == x.Name)?.IconClass ?? string.Empty
-                }).ToArray();
-            }).Location("Content");
+            model.ShowAll = treeNode.ShowAll;
+            model.IconClass = treeNode.IconClass;
+            model.ContentTypes = listable.Select(x => new ContentTypeEntryViewModel
+            {
+                ContentTypeId = x.Name,
+                IsChecked = treeNode.ContentTypes.Any(selected => string.Equals(selected.ContentTypeId, x.Name, StringComparison.OrdinalIgnoreCase)),
+                IconClass = treeNode.ContentTypes.FirstOrDefault(selected => selected.ContentTypeId == x.Name)?.IconClass ?? string.Empty,
+                CustomName = treeNode.ContentTypes.FirstOrDefault(selected => selected.ContentTypeId == x.Name)?.CustomName ?? string.Empty
+            }).ToArray();
+        }).Location("Content");
     }
 
     public override async Task<IDisplayResult> UpdateAsync(ContentTypesAdminNode treeNode, UpdateEditorContext context)
@@ -57,7 +58,10 @@ public sealed class ContentTypesAdminNodeDriver : DisplayDriver<MenuItem, Conten
 
         var model = new ContentTypesAdminNodeViewModel();
 
-        await context.Updater.TryUpdateModelAsync(model, Prefix, x => x.ShowAll, x => x.IconClass, x => x.ContentTypes);
+        await context.Updater.TryUpdateModelAsync(model, Prefix,
+            x => x.ShowAll,
+            x => x.IconClass,
+            x => x.ContentTypes);
 
         treeNode.ShowAll = model.ShowAll;
         treeNode.IconClass = model.IconClass;
@@ -67,7 +71,8 @@ public sealed class ContentTypesAdminNodeDriver : DisplayDriver<MenuItem, Conten
             new ContentTypeEntry
             {
                 ContentTypeId = x.ContentTypeId,
-                IconClass = x.IconClass
+                IconClass = x.IconClass,
+                CustomName = x.CustomName
             })
             .ToArray();
 
