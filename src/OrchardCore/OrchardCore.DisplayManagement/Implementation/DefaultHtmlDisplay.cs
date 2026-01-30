@@ -78,7 +78,7 @@ public class DefaultHtmlDisplay : IHtmlDisplay
         {
             Shape = shape,
             DisplayContext = localContext,
-            ServiceProvider = _serviceProvider
+            ServiceProvider = _serviceProvider,
         };
 
         try
@@ -95,14 +95,6 @@ public class DefaultHtmlDisplay : IHtmlDisplay
             if (shapeDescriptor != null)
             {
                 await shapeDescriptor.DisplayingAsync.InvokeAsync((action, displayContext) => action(displayContext), displayContext, _logger);
-
-                // Copy all binding sources (all templates for this shape) in order to use them as Localization scopes.
-                shapeMetadata.BindingSources = shapeDescriptor.BindingSources;
-
-                if (shapeMetadata.BindingSources.Count == 0)
-                {
-                    shapeMetadata.BindingSources = [shapeDescriptor.BindingSource];
-                }
             }
 
             // Invoking ShapeMetadata displaying events.

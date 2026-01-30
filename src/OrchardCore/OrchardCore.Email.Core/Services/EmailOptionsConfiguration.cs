@@ -36,8 +36,6 @@ public sealed class EmailOptionsConfiguration : IConfigureOptions<EmailOptions>
                 .Select(x => x.Key)
                 .LastOrDefault()
                 ?? _emailProviderOptions.Providers.Keys.Last();
-
-            return;
         }
     }
 }

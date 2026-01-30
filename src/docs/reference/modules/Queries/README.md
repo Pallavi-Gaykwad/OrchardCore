@@ -61,9 +61,9 @@ Executes a query with the specified name.
 
 Verbs: **POST** and **GET**
 
-| Parameter | Example | Description |
-| --------- | ---- |------------ |
-| `name` | `myQuery` | The name of the query to execute. |
+| Parameter    | Example      | Description                                             |
+|--------------|--------------|---------------------------------------------------------|
+| `name`       | `myQuery`    | The name of the query to execute.                       |
 | `parameters` | `{ size: 3}` | A Json object representing the parameters of the query. |
 
 ## GraphQL
@@ -143,6 +143,9 @@ For SQL and Lucene queries you can then define a custom field type name in their
 ## SQL Queries (`OrchardCore.Queries.Sql`)
 
 This feature provides a new type of query targeting the SQL database.
+
+!!! note
+    SQL queries can be used as a data source for custom widgets. If parameterized, widgets can control queries by providing values for the query parameters. For example, in the Blog Theme, the `RecentBlogPosts` Query has a parameter for SQL `LIMIT`: `SELECT DocumentId FROM ContentItemIndex WHERE ContentType='BlogPost' AND Published = 1 ORDER BY CreatedUtc DESC LIMIT @limit:3`. This allows you to add a numeric field 'Limit' to your custom widget and then provide the value of that field to the query.
 
 ### Queries recipe step
 
@@ -279,8 +282,8 @@ These statements will be converted automatically based on the RDBMS in use.
 
 The SQL parser is also able to convert some specific functions to the intended dialect.
 
-| Name             | Description                        |
-| ---------------- |----------------------------------- |
+| Name             | Description                         |
+|------------------|-------------------------------------|
 | `second(_date_)` | Returns the seconds part of a date. |
 | `minute(_date_)` | Returns the minutes part of a date. |
 | `hour(_date_)`   | Returns the hours part of a date.   |
@@ -299,8 +302,8 @@ SELECT * FROM ContentItemIndex ORDER BY random()
 
 The following JavaScript functions are available with this module.
 
-| Function | Description | Signature |
-| -------- | ----------- | --------- |
+| Function       | Description                      | Signature                                                                                |
+|----------------|----------------------------------|------------------------------------------------------------------------------------------|
 | `executeQuery` | Returns the result of the query. | `executeQuery(name: String, parameters: Dictionary<string,object>): IEnumerable<object>` |
 
 ## Videos

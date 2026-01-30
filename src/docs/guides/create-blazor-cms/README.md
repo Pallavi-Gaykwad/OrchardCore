@@ -157,7 +157,7 @@ In this section, we will create a .NET Blazor application, as Razor Class librar
 - You can run the following commands to create a new Razor class library project.
 
 ```dotnetcli
-dotnet new razorclasslib -f net8.0 -o OCBlazorLib
+dotnet new razorclasslib -f net10.0 -o OCBlazorLib
 dotnet sln add ./OCBlazorLib
 dotnet add ./BlazorCms/BlazorCms.csproj reference ./OCBlazorLib/OCBlazorLib.csproj
 ```
@@ -190,7 +190,7 @@ Now, your project explorer should look like the image below.
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <base href="/" />
                 <link rel="stylesheet" href="OrchardCore.Resources/Styles/bootstrap.min.css" />
-                <link rel="stylesheet" href="_content/OCBlazorLib/OCBlazorLib.bundle.scp.css" />
+                <link rel="stylesheet" href="_content/OCBlazor.styles.css" />
                 <HeadOutlet />
             </head>
             
@@ -778,7 +778,7 @@ One of the key features of Orchard Core is its multi-tenancy support. In this se
 
 In orchard core admin, go to `Configuration` -> `Features` and enable the `Tenants` feature.
 
-![Enalbe tenants feature](./images/enable-tenants.jpg)
+![Enable tenants feature](./images/enable-tenants.jpg)
 
 ## Add the first tenant
 

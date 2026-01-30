@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.Caching.Distributed;
@@ -45,6 +46,12 @@ public sealed class Startup : StartupBase
             if (section.GetValue("DisableCertificateVerification", false))
             {
                 configurationOptions.CertificateValidation += IgnoreCertificateErrors;
+            }
+
+            var allowAdmin = section.GetValue<bool?>("AllowAdmin", null);
+            if (allowAdmin.HasValue)
+            {
+                configurationOptions.AllowAdmin = allowAdmin.Value;
             }
 
             services.Configure<RedisOptions>(options =>

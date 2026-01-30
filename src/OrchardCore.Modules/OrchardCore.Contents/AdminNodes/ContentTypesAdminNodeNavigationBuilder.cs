@@ -62,7 +62,7 @@ public class ContentTypesAdminNodeNavigationBuilder : IAdminNodeNavigationBuilde
                     area = "OrchardCore.Contents",
                     controller = "Admin",
                     action = "List",
-                    contentTypeId = ctd.Name
+                    contentTypeId = ctd.Name,
                 }));
 
                 cTypeMenu.Priority(node.Priority);
